@@ -28,10 +28,11 @@ class DataTransformation:
         This function is responsible from data transformation
         """
         try:
-            numeric_columns = ["writing_score","reading_score"]
+            numerical_columns = ["writing_score", "reading_score"]
             categorical_columns = ["gender","race_ethnicity","parental_level_of_education","lunch","test_preparation_course"]
 
-            num_pipeline = pipeline(
+
+            num_pipeline = Pipeline(
                 steps=[
                     ("imputer",SimpleImputer(strategy="median")),
                     ("scaler",StandardScaler())
@@ -42,7 +43,7 @@ class DataTransformation:
                 steps=[
                     ("imputer", SimpleImputer(strategy="most_frequent")),
                     ("one_hot_encoder", OneHotEncoder()),
-                    ("scaler", StandardScaler())
+                    ("scaler", StandardScaler(with_mean=False))
                 ]
             )
 
@@ -50,7 +51,7 @@ class DataTransformation:
 
             preprocessor = ColumnTransformer(
                 [
-                    ("num_pipeline",num_pipeline,numeric_columns),
+                    ("num_pipeline",num_pipeline,numerical_columns),
                     ("cat_pipeline",cat_pipeline,categorical_columns)
                 ]
             )
@@ -69,7 +70,7 @@ class DataTransformation:
             logging.info("read train and test data")
         
             logging.info("obtain preprocesssing object")
-            preprocessing_obj=get_data_transformer_object()
+            preprocessing_obj=self.get_data_transformer_object()
 
             target_column_name="math_score"
             numeric_columns = ["writing_score","reading_score"]
