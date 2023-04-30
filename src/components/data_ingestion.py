@@ -3,6 +3,9 @@ import sys
 from src.exception import CustomException
 from src.logger import logging
 import pandas as pd
+import warnings
+from sklearn.exceptions import ConvergenceWarning
+warnings.filterwarnings('ignore', category=ConvergenceWarning)
 
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
