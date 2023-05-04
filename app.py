@@ -37,9 +37,9 @@ def predict_datapoint():
 
         return render_template("home.html",results=results[0])
 
-
+#http://localhost:5000/predictdata
 if __name__ == "__main__":
-    app.run(host="0.0.0.0",debug=True)
+    app.run(host="0.0.0.0",debug=True, port=5000)
 
 
 
